@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptLeaveApp" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="517"/>
+	<parameter name="leavetype" class="java.lang.String"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dept" class="java.lang.String"/>
+	<parameter name="shift" class="java.lang.String"/>
+	<parameter name="dm" class="java.lang.String"/>
+	<parameter name="gm" class="java.lang.String"/>
+	<parameter name="credits" class="java.lang.Double"/>
+	<parameter name="bal" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[SELECT
+CONCAT(last_name, ', ', first_name, ' ', COALESCE(middle_name,''),' ', COALESCE(suffix_name,'')), e.emp_no, e.sec_id, la.*
+FROM leave_app la INNER JOIN employee e
+ON la.emp_id = e.emp_id
+WHERE leave_app_id=$P{id} GROUP BY la.leave_app_id]]>
+	</queryString>
+	<field name="CONCAT(last_name, &apos;, &apos;, first_name, &apos; &apos;, COALESCE(middle_name,&apos;&apos;),&apos; &apos;, COALESCE(suffix_name,&apos;&apos;))" class="java.lang.String"/>
+	<field name="emp_no" class="java.lang.String"/>
+	<field name="sec_id" class="java.lang.Integer"/>
+	<field name="leave_app_id" class="java.lang.Integer"/>
+	<field name="emp_id" class="java.lang.Integer"/>
+	<field name="leave_type_id" class="java.lang.Integer"/>
+	<field name="start_date_time" class="java.sql.Timestamp"/>
+	<field name="end_date_time" class="java.sql.Timestamp"/>
+	<field name="leave_days" class="java.math.BigDecimal"/>
+	<field name="credits_used" class="java.math.BigDecimal"/>
+	<field name="reason" class="java.lang.String"/>
+	<field name="trans_date" class="java.sql.Timestamp"/>
+	<field name="r_approved_by" class="java.lang.Integer"/>
+	<field name="approved_by" class="java.lang.Integer"/>
+	<field name="status_id" class="java.lang.Integer"/>
+	<field name="r_approve_flag" class="java.lang.Integer"/>
+	<field name="approve_flag" class="java.lang.Integer"/>
+	<variable name="bal" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="752" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="427" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Application for " + $P{leavetype}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="405" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bindoy, Negros Oriental]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="41" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Application for " + $P{leavetype}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="96" y="383" width="56" height="56"/>
+				<imageExpression><![CDATA[".//rpt/No1-Logo.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="65" y="59" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="96" y="-3" width="56" height="56"/>
+				<imageExpression><![CDATA[".//rpt/No1-Logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="6" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEGROS ORIENTAL I ELECTRIC COOPERATIVE, iNC.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="19" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bindoy, Negros Oriental]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="433" y="37" width="113" height="14" forecolor="#FF6600"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NO. "+(new DecimalFormat("000000")).format($F{leave_app_id}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="59" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="78" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NAME:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DEPARTMENT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="114" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ID NO.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="132" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[SHIFT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="108" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO. OF DAYS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="91" width="30" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FROM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="73" width="30" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DATE: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="90" width="16" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="154" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[BRIEF EXPLANATION:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="65" y="77" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="65" y="95" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="65" y="113" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="65" y="131" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="168" width="572" height="23"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="372" y="71" width="200" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="372" y="89" width="91" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="481" y="89" width="91" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="426" y="107" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="418" y="27" width="142" height="20" forecolor="#3366FF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERNAL AUDIT COPY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="60" width="202" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PERSONAL OFFICER]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="195" width="572" height="1"/>
+			</line>
+			<rectangle>
+				<reportElement x="426" y="125" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="341" y="126" width="96" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CREDIT/s USED:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="196" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="196" width="140" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recommending Approval:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="196" width="140" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Approved by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="226" width="58" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Employee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="226" width="92" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Department Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="226" width="92" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[General Manager]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="241" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="242" width="152" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FOR ADMINISTRATIVE SECTION]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="260" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="261" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{leavetype} +":"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="85" y="278" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="279" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Less: This Request:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="298" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Balance:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="297" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="316" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Balance as of:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="332" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NOTED BY:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="51" y="345" width="152" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="348" width="177" height="14" forecolor="#3366FF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO BE PREPARED IN DUPLICATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="356" width="177" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1 - Internal Audit     2 - Personnel Officer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="242" width="152" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TO PAYROLL OFFICER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="262" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[With Full Pay:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="335" y="260" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="262" y="262" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="262" y="282" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="335" y="280" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="279" y="282" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Without Pay:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="335" y="301" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="279" y="303" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Others:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="262" y="303" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="262" y="322" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Remarks:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="262" y="336" width="310" height="33"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="22" y="382" width="550" height="1" forecolor="#666666"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="0" y="374" width="22" height="17"/>
+				<imageExpression><![CDATA[".//rpt/gonting.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="65" y="482" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="262" y="648" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="65" y="464" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="335" y="646" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="665" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Less: This Request:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="701" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Balance as of:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="582" width="140" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recommending Approval:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="372" y="475" width="91" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="65" y="519" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="85" y="645" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="433" y="423" width="113" height="14" forecolor="#FF6600"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NO. "+(new DecimalFormat("000000")).format($F{leave_app_id}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="262" y="668" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="683" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Balance:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="628" width="152" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TO PAYROLL OFFICER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="582" width="140" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Approved by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="446" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="412" width="163" height="20" forecolor="#3366FF"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONNEL OFFICER COPY]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="682" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="647" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{leavetype} +":"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="335" y="687" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="335" y="666" width="237" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="392" width="572" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEGROS ORIENTAL I ELECTRIC COOPERATIVE, iNC.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="648" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[With Full Pay:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="627" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="279" y="668" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Without Pay:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="262" y="689" width="14" height="14"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="372" y="458" width="200" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="341" y="460" width="30" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DATE: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="513" width="96" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CREDIT/s USED:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="426" y="512" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="554" width="572" height="23"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="582" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="612" width="58" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Employee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="628" width="152" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FOR ADMINISTRATIVE SECTION]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="426" y="494" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="540" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[BRIEF EXPLANATION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="495" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO. OF DAYS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="447" width="202" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PERSONAL OFFICER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="689" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Others:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="501" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ID NO.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="483" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DEPARTMENT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="612" width="92" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[General Manager]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="581" width="572" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="225" y="612" width="92" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Department Manager]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="65" y="500" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="481" y="476" width="91" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="85" y="664" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="465" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NAME:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="65" y="446" width="252" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="466" y="477" width="16" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="519" width="58" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[SHIFT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="478" width="30" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FROM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="707" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Remarks:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="51" y="731" width="152" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="741" width="177" height="11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1 - Internal Audit     2 - Personnel Officer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="718" width="85" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NOTED BY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="732" width="177" height="14" forecolor="#3366FF"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO BE PREPARED IN DUPLICATE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="85" y="700" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="262" y="719" width="310" height="33"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="85" y="315" width="146" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="67" y="78" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCAT(last_name, ', ', first_name, ' ', COALESCE(middle_name,''),' ', COALESCE(suffix_name,''))}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="67" y="447" width="202" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PERSONAL OFFICER]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="465" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCAT(last_name, ', ', first_name, ' ', COALESCE(middle_name,''),' ', COALESCE(suffix_name,''))}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="114" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emp_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="374" y="72" width="186" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, MMM d, &apos;&apos;yy">
+				<reportElement x="373" y="90" width="89" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{start_date_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, MMM d, &apos;&apos;yy">
+				<reportElement x="482" y="90" width="89" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end_date_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="428" y="108" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leave_days}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="428" y="126" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credits_used}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="169" width="569" height="22"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reason}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="86" y="316" width="144" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="86" y="279" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credits_used}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="217" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCAT(last_name, ', ', first_name, ' ', COALESCE(middle_name,''),' ', COALESCE(suffix_name,''))}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="501" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emp_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="428" y="513" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credits_used}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, MMM d, &apos;&apos;yy">
+				<reportElement x="373" y="477" width="89" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{start_date_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="373" y="459" width="186" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, MMM d, &apos;&apos;yy">
+				<reportElement x="482" y="477" width="89" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{end_date_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="428" y="495" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leave_days}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="555" width="569" height="22"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reason}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="603" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONCAT(last_name, ', ', first_name, ' ', COALESCE(middle_name,''),' ', COALESCE(suffix_name,''))}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="86" y="701" width="144" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="86" y="665" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{credits_used}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="483" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dept}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="520" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shift}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="132" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shift}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="96" width="250" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dept}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="217" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="217" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{gm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="603" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="603" width="165" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{gm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="261" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{credits}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="298" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.0">
+				<reportElement x="86" y="646" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{credits}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="683" width="100" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
